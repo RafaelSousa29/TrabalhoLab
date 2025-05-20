@@ -5,7 +5,8 @@ using System.Windows.Input;
 using ClosedXML.Excel;
 using TrabalhoLab.Models;
 using TrabalhoLab.ViewModels;
-
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace TrabalhoLab.ViewModels
 {
@@ -14,6 +15,9 @@ namespace TrabalhoLab.ViewModels
         public ObservableCollection<AlunoNotaFinal> AlunosNotas { get; set; }
 
         public ICommand ExportarExcelCommand { get; }
+
+        public SeriesCollection Series { get; set; }
+        public string[] Labels { get; set; }
 
         public PautaViewModel()
         {
@@ -59,6 +63,17 @@ namespace TrabalhoLab.ViewModels
             AlunosNotas = new ObservableCollection<AlunoNotaFinal>(lista);
 
             ExportarExcelCommand = new RelayCommand(ExportarParaExcel);
+
+            Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Notas",
+                    Values = new ChartValues<double>(AlunosNotas.Select(a => a.NotaFinal))
+                }
+            };
+
+            Labels = AlunosNotas.Select(a => a.NumeroAluno.ToString()).ToArray();
         }
 
         private void ExportarParaExcel()
@@ -66,7 +81,6 @@ namespace TrabalhoLab.ViewModels
             var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Pauta");
 
-            // Cabeçalhos
             ws.Cell(1, 1).Value = "Número";
             ws.Cell(1, 2).Value = "Grupo";
             ws.Cell(1, 3).Value = "Nota Final";

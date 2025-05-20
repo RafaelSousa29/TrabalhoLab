@@ -10,8 +10,8 @@ namespace TrabalhoLab
         {
             base.OnStartup(e);
 
-            var janela = new Views.PautaView();
-            janela.Show();
+            new Views.UtilizadorView().Show();
+
         }
     }
 }
