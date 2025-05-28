@@ -25,7 +25,6 @@ namespace TrabalhoLab.ViewModels
         public UtilizadorViewModel()
         {
             Utilizador = DataService<Utilizador>.Carregar("utilizador.xml") ?? new Utilizador();
-
             GuardarCommand = new RelayCommand(Guardar);
             SelecionarFotoCommand = new RelayCommand(SelecionarFoto);
             EntrarCommand = new RelayCommand(Entrar);
@@ -53,12 +52,11 @@ namespace TrabalhoLab.ViewModels
 
         private void Entrar()
         {
-            Guardar(); // Garante que os dados são salvos antes de entrar
+            Guardar(); 
 
             var janelaMenu = new MainWindow();
             janelaMenu.Show();
 
-            // Fechar a janela atual (UtilizadorView)
             foreach (var janela in System.Windows.Application.Current.Windows)
             {
                 if (janela is Window w && w.DataContext == this)

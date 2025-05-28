@@ -2,38 +2,68 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:TrabalhoLab.ViewModels"
-        Title="Avaliação de Tarefas" Height="450" Width="700"
-        WindowStartupLocation="CenterScreen">
+        Title="Avaliação de Tarefas" Height="500" Width="750"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
 
     <Window.DataContext>
         <vm:AvaliacaoViewModel />
     </Window.DataContext>
 
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Border CornerRadius="10" Background="White" Padding="20" Margin="10" BorderBrush="#483D8B" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <ComboBox Grid.Row="0"
-                  ItemsSource="{Binding Grupos}"
-                  SelectedItem="{Binding GrupoSelecionado}"
-                  DisplayMemberPath="Nome"
-                  Margin="0 0 0 10" />
+            <!-- Cabeçalho com ComboBox de Grupo -->
+            <StackPanel Grid.Row="0" Margin="0 0 0 15">
+                <Border Background="#483D8B" CornerRadius="5" Padding="10" Margin="0 0 0 10">
+                    <TextBlock Text="Avaliação de Tarefas"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="White"
+                               HorizontalAlignment="Center"/>
+                </Border>
 
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding AvaliacoesGrupoSelecionado}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  IsReadOnly="False"
-                  Margin="0 0 0 10">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Tarefa ID" Binding="{Binding TarefaId}" Width="100"/>
-                <DataGridTextColumn Header="Nota" Binding="{Binding Nota}" Width="100"/>
-            </DataGrid.Columns>
-        </DataGrid>
+                <StackPanel Orientation="Horizontal" Margin="0 5 0 0" VerticalAlignment="Center">
+                    <TextBlock Text="Grupo:" Width="50" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding Grupos}"
+                              SelectedItem="{Binding GrupoSelecionado}"
+                              DisplayMemberPath="Nome"
+                              Width="200"
+                              Padding="5"
+                              Margin="5 0 0 0"/>
+                </StackPanel>
+            </StackPanel>
 
-        <Button Grid.Row="2" Content="Guardar" Command="{Binding GuardarCommand}" HorizontalAlignment="Right"/>
-    </Grid>
+            <!-- Tabela de Notas -->
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding AvaliacoesGrupoSelecionado}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="False"
+                      Margin="0 0 0 10"
+                      RowHeight="35"
+                      HeadersVisibility="Column"
+                      AlternatingRowBackground="#EEE"
+                      BorderBrush="#CCC"
+                      BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Tarefa ID" Binding="{Binding TarefaId}" Width="*" />
+                    <DataGridTextColumn Header="Nota" Binding="{Binding Nota}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Botão Guardar -->
+            <Button Grid.Row="2"
+                    Content="Guardar"
+                    Command="{Binding GuardarCommand}"
+                    Style="{StaticResource MenuButtonStyle}"
+                    Width="120"
+                    HorizontalAlignment="Right"/>
+        </Grid>
+    </Border>
 </Window>

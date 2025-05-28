@@ -3,44 +3,68 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:TrabalhoLab.ViewModels"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Title="Pauta Final" Height="600" Width="600"
-        WindowStartupLocation="CenterScreen">
+        Title="Pauta Final" Height="600" Width="700"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
 
     <Window.DataContext>
         <vm:PautaViewModel />
     </Window.DataContext>
 
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Border CornerRadius="10" Background="White" Padding="20" Margin="10" BorderBrush="#483D8B" BorderThickness="2">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0"
-                  ItemsSource="{Binding AlunosNotas}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  IsReadOnly="True"
-                  Margin="0 0 0 10">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Número" Binding="{Binding NumeroAluno}" Width="*"/>
-                <DataGridTextColumn Header="Grupo" Binding="{Binding GrupoNome}" Width="*"/>
-                <DataGridTextColumn Header="Nota Final" Binding="{Binding NotaFinal, StringFormat=N2}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            <!-- Cabeçalho -->
+            <Border Background="#483D8B" CornerRadius="5" Padding="10" Margin="0 0 0 15" Grid.Row="0">
+                <TextBlock Text="Pauta Final"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+            </Border>
 
-        <lvc:CartesianChart Grid.Row="1"
-                            Series="{Binding Series}"
-                            Margin="0 10 0 10"
-                            Height="200">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Labels="{Binding Labels}" LabelsRotation="15" />
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
+            <!-- Tabela de Notas -->
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding AlunosNotas}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      Margin="0 10 0 10"
+                      RowHeight="35"
+                      HeadersVisibility="Column"
+                      AlternatingRowBackground="#EEE"
+                      BorderBrush="#CCC"
+                      BorderThickness="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Número" Binding="{Binding NumeroAluno}" Width="*" />
+                    <DataGridTextColumn Header="Grupo" Binding="{Binding GrupoNome}" Width="*" />
+                    <DataGridTextColumn Header="Nota Final" Binding="{Binding NotaFinal, StringFormat=N2}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Exportar para Excel" Command="{Binding ExportarExcelCommand}" />
-        </StackPanel>
-    </Grid>
+            <!-- Gráfico -->
+            <lvc:CartesianChart Grid.Row="2"
+                                Series="{Binding Series}"
+                                Margin="0 10"
+                                Height="200">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding Labels}" LabelsRotation="15"/>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+
+            <!-- Botão -->
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Exportar para Excel"
+                        Command="{Binding ExportarExcelCommand}"
+                        Style="{StaticResource MenuButtonStyle}"
+                        Width="160"/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

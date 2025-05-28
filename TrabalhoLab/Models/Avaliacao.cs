@@ -11,6 +11,7 @@ namespace TrabalhoLab.Models
         public int GrupoId { get; set; }
         public int TarefaId { get; set; }
         public double Nota { get; set; }
+        public int? NumeroAluno { get; set; }
     }
 }
 

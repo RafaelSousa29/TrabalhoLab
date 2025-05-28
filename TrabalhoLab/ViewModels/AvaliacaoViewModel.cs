@@ -46,7 +46,6 @@ namespace TrabalhoLab.ViewModels
             if (GrupoSelecionado == null)
                 return;
 
-            // Garante que para cada tarefa há uma avaliação correspondente ao grupo
             foreach (var tarefa in Tarefas)
             {
                 var existe = Avaliacoes.Any(a => a.GrupoId == GrupoSelecionado.Id && a.TarefaId == tarefa.Id);
