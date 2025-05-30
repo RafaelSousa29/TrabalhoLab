@@ -20,7 +20,6 @@
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" >
 
-            <!-- Cabeçalho estilizado com borda -->
             <Border Background="#483D8B"
                     CornerRadius="5"
                     Padding="10"
@@ -32,7 +31,6 @@
                            HorizontalAlignment="Center" />
             </Border>
 
-            <!-- Botões -->
             <Button Content="Gerir Alunos"
                     Command="{Binding AbrirAlunosCommand}"
                     Style="{StaticResource MenuButtonStyle}" />

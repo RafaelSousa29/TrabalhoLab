@@ -29,7 +29,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Cabeçalho -->
             <Border Background="#483D8B"
                     CornerRadius="5"
                     Padding="10"
@@ -42,14 +41,12 @@
                            HorizontalAlignment="Center"/>
             </Border>
 
-            <!-- Imagem -->
             <Image Grid.Row="1"
                    Width="100" Height="100"
                    Source="{Binding Utilizador.CaminhoFoto}"
                    Margin="0 0 0 10"
                    HorizontalAlignment="Left"/>
 
-            <!-- Botão de foto -->
             <Button Grid.Row="2"
                     Content="Selecionar Foto"
                     Command="{Binding SelecionarFotoCommand}"
@@ -60,7 +57,6 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"/>
 
-            <!-- Nome -->
             <StackPanel Grid.Row="3"
                         Orientation="Horizontal"
                         Margin="0 0 0 10"
@@ -73,7 +69,6 @@
                          BorderThickness="1"/>
             </StackPanel>
 
-            <!-- Email -->
             <StackPanel Grid.Row="4"
                         Orientation="Horizontal"
                         Margin="0 0 0 10"
@@ -86,7 +81,6 @@
                          BorderThickness="1"/>
             </StackPanel>
 
-            <!-- Botões -->
             <StackPanel Grid.Row="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"

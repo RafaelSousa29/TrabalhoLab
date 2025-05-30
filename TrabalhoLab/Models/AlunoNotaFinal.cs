@@ -9,6 +9,7 @@ namespace TrabalhoLab.Models
     public class AlunoNotaFinal
     {
         public int NumeroAluno { get; set; }
+        public string NomeAluno { get; set; }
         public string GrupoNome { get; set; } = string.Empty;
         public double NotaFinal { get; set; }
     }

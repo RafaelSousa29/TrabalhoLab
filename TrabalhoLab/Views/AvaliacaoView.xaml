@@ -58,6 +58,21 @@
                     <DataGridTextColumn Header="Tarefa ID" Binding="{Binding TarefaId}" Width="*" />
                     <DataGridTextColumn Header="Aluno" Binding="{Binding NumeroAluno}" Width="*" />
                     <DataGridTextColumn Header="Nota" Binding="{Binding Nota}" Width="*" />
+
+                    <DataGridTemplateColumn Header="❌" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="X"
+                                        Width="30"
+                                        Height="25"
+                                        Background="#D9534F"
+                                        Foreground="White"
+                                        FontWeight="Bold"
+                                        Command="{Binding DataContext.RemoverNotaCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 

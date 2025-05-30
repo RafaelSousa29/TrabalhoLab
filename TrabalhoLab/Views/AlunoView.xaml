@@ -19,7 +19,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Cabeçalho -->
             <Border Background="#483D8B" CornerRadius="5" Padding="10" Margin="0 0 0 15" Grid.Row="0">
                 <StackPanel>
                     <TextBlock Text="Gestão de Alunos"

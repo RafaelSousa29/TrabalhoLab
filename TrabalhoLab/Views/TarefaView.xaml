@@ -19,7 +19,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Cabeçalho -->
             <Border Grid.Row="0" Background="#483D8B" CornerRadius="5" Padding="10" Margin="0 0 0 15">
                 <TextBlock Text="Gestão de Tarefas"
                            FontSize="20"
@@ -28,7 +27,6 @@
                            HorizontalAlignment="Center"/>
             </Border>
 
-            <!-- Tabela de tarefas -->
             <DataGrid Grid.Row="1"
                       ItemsSource="{Binding Tarefas}"
                       SelectedItem="{Binding TarefaSelecionada, Mode=TwoWay}"
@@ -74,7 +72,6 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Botões -->
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
                 <Button Content="Adicionar" Command="{Binding AdicionarCommand}" Style="{StaticResource MenuButtonStyle}" Margin="0 0 10 0"/>
                 <Button Content="Remover" Command="{Binding RemoverCommand}" Style="{StaticResource MenuButtonStyle}" Margin="0 0 10 0"/>
