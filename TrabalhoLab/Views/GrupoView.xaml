@@ -4,6 +4,7 @@
         xmlns:vm="clr-namespace:TrabalhoLab.ViewModels"
         Title="Gestão de Grupos" Height="520" Width="850"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="#F5F5F5">
 
     <Window.DataContext>

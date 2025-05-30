@@ -42,10 +42,31 @@ namespace TrabalhoLab.ViewModels
 
                 foreach (var tarefa in tarefas)
                 {
-                    var avaliacao = avaliacoesDoGrupo.FirstOrDefault(a => a.TarefaId == tarefa.Id);
-                    if (avaliacao != null)
+                    // Tenta encontrar nota INDIVIDUAL primeiro
+                    var avaliacaoIndividual = avaliacoesDoGrupo.FirstOrDefault(a =>
+                        a.TarefaId == tarefa.Id &&
+                        a.NumeroAluno == aluno.Numero);
+
+                    double? notaConsiderada = null;
+
+                    if (avaliacaoIndividual != null)
                     {
-                        somaNotas += avaliacao.Nota * tarefa.Peso;
+                        notaConsiderada = avaliacaoIndividual.Nota;
+                    }
+                    else
+                    {
+                        // Se não houver individual, usa a GERAL do grupo
+                        var avaliacaoGeral = avaliacoesDoGrupo.FirstOrDefault(a =>
+                            a.TarefaId == tarefa.Id &&
+                            a.NumeroAluno == null);
+
+                        if (avaliacaoGeral != null)
+                            notaConsiderada = avaliacaoGeral.Nota;
+                    }
+
+                    if (notaConsiderada.HasValue)
+                    {
+                        somaNotas += notaConsiderada.Value * tarefa.Peso;
                         somaPesos += tarefa.Peso;
                     }
                 }

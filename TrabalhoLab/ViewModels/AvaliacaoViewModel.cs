@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Windows.Input;
 using TrabalhoLab.Models;
-using TrabalhoLab.ViewModels;
-
 
 namespace TrabalhoLab.ViewModels
 {
@@ -21,9 +19,23 @@ namespace TrabalhoLab.ViewModels
             {
                 _grupoSelecionado = value;
                 OnPropertyChanged();
-                AtualizarAvaliacoesDoGrupo();
+                AtualizarAvaliacoes();
             }
         }
+
+        private bool _avaliacaoIndividual;
+        public bool AvaliacaoIndividual
+        {
+            get => _avaliacaoIndividual;
+            set
+            {
+                _avaliacaoIndividual = value;
+                OnPropertyChanged();
+                AtualizarAvaliacoes();
+            }
+        }
+
+        public ObservableCollection<Avaliacao> AvaliacoesGrupoSelecionado { get; set; } = new();
 
         public ICommand GuardarCommand { get; }
 
@@ -41,41 +53,62 @@ namespace TrabalhoLab.ViewModels
             GuardarCommand = new RelayCommand(GuardarAvaliacoes);
         }
 
-        private void AtualizarAvaliacoesDoGrupo()
+        private void AtualizarAvaliacoes()
         {
+            AvaliacoesGrupoSelecionado.Clear();
+
             if (GrupoSelecionado == null)
                 return;
 
-            foreach (var tarefa in Tarefas)
+            if (AvaliacaoIndividual)
             {
-                var existe = Avaliacoes.Any(a => a.GrupoId == GrupoSelecionado.Id && a.TarefaId == tarefa.Id);
-                if (!existe)
+                foreach (var aluno in GrupoSelecionado.Alunos)
                 {
-                    Avaliacoes.Add(new Avaliacao
+                    foreach (var tarefa in Tarefas)
                     {
-                        GrupoId = GrupoSelecionado.Id,
-                        TarefaId = tarefa.Id,
-                        Nota = 0
-                    });
+                        var avaliacao = Avaliacoes.FirstOrDefault(a =>
+                            a.GrupoId == GrupoSelecionado.Id &&
+                            a.TarefaId == tarefa.Id &&
+                            a.NumeroAluno == aluno.Numero);
+
+                        if (avaliacao == null)
+                        {
+                            avaliacao = new Avaliacao
+                            {
+                                GrupoId = GrupoSelecionado.Id,
+                                TarefaId = tarefa.Id,
+                                NumeroAluno = aluno.Numero,
+                                Nota = 0
+                            };
+                            Avaliacoes.Add(avaliacao);
+                        }
+
+                        AvaliacoesGrupoSelecionado.Add(avaliacao);
+                    }
                 }
             }
-
-            OnPropertyChanged(nameof(AvaliacoesGrupoSelecionado));
-        }
-
-        public ObservableCollection<Avaliacao> AvaliacoesGrupoSelecionado
-        {
-            get
+            else
             {
-                if (GrupoSelecionado == null)
-                    return new ObservableCollection<Avaliacao>();
+                foreach (var tarefa in Tarefas)
+                {
+                    var avaliacao = Avaliacoes.FirstOrDefault(a =>
+                        a.GrupoId == GrupoSelecionado.Id &&
+                        a.TarefaId == tarefa.Id &&
+                        a.NumeroAluno == null);
 
-                var lista = Avaliacoes
-                    .Where(a => a.GrupoId == GrupoSelecionado.Id)
-                    .OrderBy(a => a.TarefaId)
-                    .ToList();
+                    if (avaliacao == null)
+                    {
+                        avaliacao = new Avaliacao
+                        {
+                            GrupoId = GrupoSelecionado.Id,
+                            TarefaId = tarefa.Id,
+                            Nota = 0
+                        };
+                        Avaliacoes.Add(avaliacao);
+                    }
 
-                return new ObservableCollection<Avaliacao>(lista);
+                    AvaliacoesGrupoSelecionado.Add(avaliacao);
+                }
             }
         }
 

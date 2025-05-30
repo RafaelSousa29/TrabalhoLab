@@ -4,6 +4,7 @@
         xmlns:vm="clr-namespace:TrabalhoLab.ViewModels"
         Title="Gestão de Alunos" Height="500" Width="650"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="#F5F5F5">
 
     <Window.DataContext>

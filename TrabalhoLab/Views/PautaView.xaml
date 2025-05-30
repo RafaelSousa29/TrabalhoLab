@@ -5,6 +5,7 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Title="Pauta Final" Height="600" Width="700"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="#F5F5F5">
 
     <Window.DataContext>

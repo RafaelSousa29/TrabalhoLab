@@ -4,6 +4,7 @@
         xmlns:vm="clr-namespace:TrabalhoLab.ViewModels"
         Title="Avaliação de Tarefas" Height="500" Width="750"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         Background="#F5F5F5">
 
     <Window.DataContext>
@@ -18,7 +19,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Cabeçalho com ComboBox de Grupo -->
             <StackPanel Grid.Row="0" Margin="0 0 0 15">
                 <Border Background="#483D8B" CornerRadius="5" Padding="10" Margin="0 0 0 10">
                     <TextBlock Text="Avaliação de Tarefas"
@@ -35,11 +35,14 @@
                               DisplayMemberPath="Nome"
                               Width="200"
                               Padding="5"
-                              Margin="5 0 0 0"/>
+                              Margin="5 0 20 0"/>
+
+                    <CheckBox Content="Avaliação Individual"
+                              IsChecked="{Binding AvaliacaoIndividual}"
+                              VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
 
-            <!-- Tabela de Notas -->
             <DataGrid Grid.Row="1"
                       ItemsSource="{Binding AvaliacoesGrupoSelecionado}"
                       AutoGenerateColumns="False"
@@ -53,11 +56,11 @@
                       BorderThickness="1">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Tarefa ID" Binding="{Binding TarefaId}" Width="*" />
+                    <DataGridTextColumn Header="Aluno" Binding="{Binding NumeroAluno}" Width="*" />
                     <DataGridTextColumn Header="Nota" Binding="{Binding Nota}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Botão Guardar -->
             <Button Grid.Row="2"
                     Content="Guardar"
                     Command="{Binding GuardarCommand}"
